@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOYU</title>
+  <link rel="stylesheet" href="./styles.css?v=moyu-6" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="主导航">
+      <button class="sidebar-brand" type="button" data-route="home"><strong>MOYU</strong><span>摸鱼是为了<br />走更远的路。</span></button>
+      <nav class="main-nav">
+        <button class="nav-item is-active" type="button" data-route="home"><svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v10h-6v-7H9v7H3z"/></svg><span>首页</span></button>
+        <button class="nav-item" type="button" data-route="library"><svg viewBox="0 0 24 24"><path d="M3 5.5A3.5 3.5 0 0 1 6.5 2H11v18H6.5A3.5 3.5 0 0 0 3 23zm18 0A3.5 3.5 0 0 0 17.5 2H13v18h4.5a3.5 3.5 0 0 1 3.5 3z"/></svg><span>书库</span></button>
+        <button class="nav-item" type="button" data-route="settings"><svg viewBox="0 0 24 24"><path d="M12 8.3a3.7 3.7 0 1 0 0 7.4 3.7 3.7 0 0 0 0-7.4zm8.4 3.7a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.5 1a8 8 0 0 0-1.7-1L15.7 3h-4l-.4 2.8a8 8 0 0 0-1.8 1L7 5.8 5 9.3l2.1 1.7a7 7 0 0 0 0 2L5 14.7l2 3.5 2.5-1a8 8 0 0 0 1.8 1l.4 2.8h4l.4-2.8a8 8 0 0 0 1.7-1l2.6 1 2-3.5-2.1-1.6a7 7 0 0 0 .1-1.1z"/></svg><span>设置</span></button>
+      </nav>
+      <div class="sidebar-foot"><img src="./assets/moyu-hero.png" alt="" /><p>认真工作，<br />也认真看小说。</p><i></i><small>v0.1.0</small></div>
+    </aside>
+
+    <main>
+      <section id="home" class="view home-view is-visible">
+        <div class="home-hero">
+          <div><h1>准备开始摸鱼了吗？</h1><p>在看起来很忙的同时，读完一本好书。</p></div>
+          <img src="./assets/moyu-hero.png" alt="" aria-hidden="true" />
+        </div>
+
+        <article class="continue-panel" id="continue-panel"></article>
+
+        <div class="session-block">
+          <h2>开始新的摸鱼会话</h2>
+          <div class="session-grid">
+            <label class="session-card selectable-card" for="book-select">
+              <span class="step">01</span><span class="label">选择小说</span>
+              <select id="book-select" aria-label="选择小说"></select><i>⌄</i>
+            </label>
+            <label class="session-card selectable-card" for="workspace-select">
+              <span class="step">02</span><span class="label">工作界面</span>
+              <select id="workspace-select" aria-label="工作界面">
+                <option value="word">Word</option>
+                <option value="mysql">MySQL Workbench</option>
+                <option value="vscode">VS Code</option>
+              </select><i>⌄</i>
+            </label>
+            <label class="session-card selectable-card" for="disguise-select">
+              <span class="step">03</span><span class="label">伪装程度</span>
+              <select id="disguise-select" aria-label="伪装程度">
+                <option value="basic">基础伪装</option>
+                <option value="real">真实伪装</option>
+              </select><i>⌄</i>
+            </label>
+          </div>
+          <button class="dark-button start-button" id="start-work" type="button">开始工作 <span>→</span></button>
+          <div class="home-closing"><blockquote>“ 生活不只有眼前的 KPI，<br />还有小说里的星辰大海。 ”</blockquote><span><i></i> MOYU</span></div>
+        </div>
+      </section>
+
+      <section id="library" class="view library-view">
+        <header class="library-heading"><div><h1>我的书库</h1><p>在这里管理你的小说，继续你的摸鱼计划。</p></div><button class="dark-button" id="import-book" type="button"><span>＋</span><b id="import-button-label">添加小说</b></button></header>
+        <div class="library-toolbar">
+          <div class="library-tabs" role="tablist">
+            <button class="is-active" type="button" data-library-filter="all">全部小说 <span id="all-count">(0)</span></button>
+            <button type="button" data-library-filter="recent">最近阅读 <span id="recent-count">(0)</span></button>
+            <button type="button" data-library-filter="favorite">我喜欢的 <span id="favorite-count">(0)</span></button>
+          </div>
+          <div class="library-tools">
+            <label class="search-box"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16.2 16.2 5 5"/></svg><input id="library-search" type="search" placeholder="搜索小说名称..." /></label>
+            <label class="sort-box"><select id="library-sort"><option value="recent">最近阅读</option><option value="title">书名排序</option><option value="added">最近添加</option></select><span>⌄</span></label>
+            <div class="view-switch"><button class="is-active" type="button" data-library-view="grid" aria-label="网格视图">▦</button><button type="button" data-library-view="list" aria-label="列表视图">☷</button></div>
+          </div>
+        </div>
+        <div class="library-columns" id="library-columns">
+          <div class="book-list" id="book-list"></div>
+          <div class="library-empty" id="library-empty" hidden><div class="document-icon"><span></span><i></i><b>＋</b></div><h2>还没有小说</h2><p>添加一本小说，开始你的摸鱼计划。</p></div>
+        </div>
+        <input id="file-input" type="file" accept=".txt,.pdf,.docx,.epub,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/epub+zip" hidden />
+      </section>
+
+      <section id="settings" class="view settings-view">
+        <header class="settings-heading"><h1>设置</h1><p>让 MOYU 更适合你的使用习惯。</p></header>
+        <article class="settings-card ime-settings">
+          <div class="settings-copy"><h2>输入法候选框</h2><p>选择与你的系统一致的输入法候选框样式。<br />打字时将显示对应风格的系统候选框（仅作为装饰显示，不影响小说内容）。</p><div class="os-options"><button type="button" data-ime-style="windows"><span class="windows-logo">⊞</span> Windows</button><button type="button" data-ime-style="mac"><span class="apple-logo">●</span> macOS</button></div></div>
+          <div class="ime-preview"><p>预览效果</p><div id="settings-ime-preview"></div><small>* 预览为示例，实际候选词将随机显示 1–3 个字。</small></div>
+        </article>
+        <article class="settings-card speed-settings">
+          <h2>打字速度</h2><p>设置每次按键时显示的小说字数。<br />数值越大，单次输入显示的内容越多。</p>
+          <div class="speed-options"><button type="button" data-typing-speed="slow"><i></i><strong>慢</strong><span>每次显示 1–2 个字</span></button><button type="button" data-typing-speed="medium"><i></i><strong>中等</strong><span>每次显示 1–5 个字</span></button><button type="button" data-typing-speed="fast"><i></i><strong>快</strong><span>每次显示 3–8 个字</span></button></div>
+          <label class="typing-preview"><span id="typing-preview-text">窗外的雨声渐渐轻了，他放下手中的书，站起身…</span><input id="typing-preview-input" type="text" aria-label="打字效果预览" /><small>试着按下键盘，看看效果吧。</small></label>
+        </article>
+      </section>
+
+      <section id="word" class="view word-view" aria-label="Word 工作界面">
+        <div class="word-titlebar">
+          <div class="word-title-row">
+            <div class="word-quick-access">
+              <svg viewBox="0 0 24 24"><path d="M5 3h12l2 2v16H5zM8 3v6h8V3M8 21v-8h8v8"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M9 7 4 12l5 5M5 12h8a6 6 0 0 1 6 6"/></svg>
+              <svg class="word-disabled-icon" viewBox="0 0 24 24"><path d="m15 7 5 5-5 5M19 12h-8a6 6 0 0 0-6 6"/></svg>
+              <span class="word-quick-more">⌄</span>
+            </div>
+            <div class="word-window-title">新建 Microsoft Word 文档 - Word</div>
+            <div class="word-window-controls">
+              <button class="word-login" type="button" tabindex="-1">登录</button>
+              <span class="word-ribbon-display">▣</span>
+              <span class="word-minimize">─</span>
+              <span class="word-maximize">□</span>
+              <button class="word-close" type="button" data-route="home" aria-label="关闭 Word 并返回首页">×</button>
+            </div>
+          </div>
+          <div class="word-menu-row" aria-hidden="true">
+            <span>文件</span><span class="is-current">开始</span><span>插入</span><span>设计</span><span>布局</span><span>引用</span><span>邮件</span><span>审阅</span><span>视图</span><span>帮助</span><span class="word-help-search">◉&nbsp;&nbsp;操作说明搜索</span>
+          </div>
+        </div>
+        <div class="wps-workspace">
+          <div class="wps-document-scroll" id="wps-scroll" tabindex="-1">
+            <div class="wps-pages" id="wps-pages" aria-label="Word 文档正文"></div>
+          </div>
+        </div>
+        <div class="wps-statusbar" aria-hidden="true">
+          <div><span id="wps-page-indicator">第 1 页，共 1 页</span><i></i><span id="wps-word-count">0 个字</span><i></i><span>中文（中国）</span><i></i><span>辅助功能: 良好</span></div>
+          <div><span class="status-selected">▤</span><span>☷</span><span>▣</span><b>100%</b><span>−</span><span class="zoom-line"><em></em></span><span>＋</span></div>
+        </div>
+      </section>
+
+      <section id="mysql" class="view mysql-view" aria-label="MySQL Workbench SQL Editor">
+        <header class="mysql-windowbar">
+          <div class="mysql-app-title"><span class="mysql-app-mark">◩</span><strong>MySQL Workbench</strong></div>
+          <div class="mysql-window-controls"><button type="button" data-route="home" aria-label="关闭 MySQL Workbench">×</button></div>
+        </header>
+        <div class="mysql-top-tabs" aria-hidden="true">
+          <span class="mysql-top-home">◆</span>
+          <div>MySQL Model* (sakila_full.mwb)<b>×</b></div>
+          <div>EER Diagram<b>×</b></div>
+          <div class="is-current">localhost - Warning - not supp...<b>×</b></div>
+        </div>
+        <nav class="mysql-menubar" aria-label="MySQL Workbench 菜单">
+          <span>File</span><span>Edit</span><span>View</span><span>Query</span><span>Database</span><span>Server</span><span>Tools</span><span>Scripting</span><span>Help</span>
+        </nav>
+        <div class="mysql-toolbar" aria-hidden="true">
+          <span class="wb-file wb-plus">SQL</span><span class="wb-file">SQL</span><i></i><span class="wb-db">●</span><i></i><span class="wb-db wb-plus">●</span><span class="wb-table">▦</span><span class="wb-panel">▣</span><span class="wb-network">♢</span><span class="wb-file">▤</span><span class="wb-file">▧</span><span class="wb-search">⌕</span><i></i><span class="wb-server">♨</span>
+          <span class="mysql-user">●</span><span class="mysql-layouts">▯ ▯ ▯</span>
+        </div>
+        <div class="mysql-body">
+          <aside class="mysql-navigator">
+            <div class="mysql-pane-title"><strong>Navigator</strong><span>×</span></div>
+            <div class="mysql-schema-heading"><strong>SCHEMAS</strong><span>◈</span></div>
+            <div class="mysql-schema-tools"><span>⌕</span><input type="text" placeholder="Filter objects" tabindex="-1" /></div>
+            <div class="mysql-schema-tree" aria-hidden="true">
+              <p><span>▸</span><b>competicionesatletismo</b></p><p><span>▸</span><b>ejemplo_mysql</b></p><p><span>▸</span><b>phpmyadmin</b></p>
+              <p><span>▾</span><b>sakila</b></p><p class="tree-child is-selected"><span>▾</span><b>Tables</b></p>
+              <p class="tree-object"><span>▸</span>actor</p><p class="tree-object"><span>▸</span>address</p><p class="tree-object"><span>▸</span>category</p><p class="tree-object"><span>▸</span>city</p><p class="tree-object"><span>▸</span>country</p><p class="tree-object"><span>▸</span>customer</p><p class="tree-object"><span>▸</span>film</p><p class="tree-object"><span>▸</span>film_actor</p><p class="tree-object"><span>▸</span>film_category</p><p class="tree-object"><span>▸</span>film_text</p><p class="tree-object"><span>▸</span>inventory</p>
+            </div>
+            <div class="mysql-nav-switch"><span>Administration</span><b>Schemas</b></div>
+            <div class="mysql-information"><div>Information</div><strong>Schema: <em>sakila</em></strong></div>
+            <div class="mysql-info-tabs"><b>Object Info</b><span>Session</span></div>
+          </aside>
+          <section class="mysql-query-area">
+            <div class="mysql-query-tabs"><div class="is-active">Query 1 <b>×</b></div></div>
+            <div class="mysql-editor-panel">
+              <div class="mysql-editor-toolbar" aria-hidden="true"><span>▰</span><span>▣</span><i></i><span class="mysql-bolt">ϟ</span><span class="mysql-bolt">ϟ</span><span>⌕</span><span>◉</span><span>▣</span><span>●</span><span>×</span><span class="wb-check">✓</span><span class="wb-clock">◴</span><label>Limit to 1000 rows⌄</label><span>★</span><span>▰</span><span>⌕</span><span>¶</span><span>↵</span></div>
+              <div class="mysql-editor-scroll" id="mysql-editor-scroll" tabindex="-1">
+                <div class="mysql-code" id="mysql-code"></div>
+              </div>
+            </div>
+            <div class="mysql-results">
+              <div class="mysql-result-main">
+                <div class="mysql-result-toolbar"><b>Result Grid</b><span>▥</span><span>↻</span><label>Filter Rows:</label><div></div><label>Edit:</label><button>✎</button><button>▦</button><button>▦</button><label>Export/Import:</label><button>▦</button><button>▧</button><label>Wrap Cell Content:</label><span>↕</span><span>◧</span></div>
+                <div class="mysql-grid">
+                  <div class="mysql-grid-head"><span></span><span>actor_id</span><span>first_name</span><span>last_name</span><span>last_update</span></div>
+                  <div class="mysql-grid-row"><span>▶</span><span>1</span><span>PENELOPE</span><span>GUINESS</span><span>2006-02-15 04:34:33</span></div><div class="mysql-grid-row"><span></span><span>2</span><span>NICK</span><span>WAHLBERG</span><span>2006-02-15 04:34:33</span></div><div class="mysql-grid-row"><span></span><span>3</span><span>ED</span><span>CHASE</span><span>2006-02-15 04:34:33</span></div><div class="mysql-grid-row"><span></span><span>4</span><span>JENNIFER</span><span>DAVIS</span><span>2006-02-15 04:34:33</span></div><div class="mysql-grid-row"><span></span><span>5</span><span>JOHNNY</span><span>LOLLOBRIGIDA</span><span>2006-02-15 04:34:33</span></div><div class="mysql-grid-row"><span></span><span>6</span><span>BETTE</span><span>NICHOLSON</span><span>2006-02-15 04:34:33</span></div><div class="mysql-grid-row"><span></span><span>7</span><span>GRACE</span><span>MOSTEL</span><span>2006-02-15 04:34:33</span></div><div class="mysql-grid-row"><span></span><span>8</span><span>MATTHEW</span><span>JOHANSSON</span><span>2006-02-15 04:34:33</span></div><div class="mysql-grid-row"><span></span><span>9</span><span>JOE</span><span>SWANK</span><span>2006-02-15 04:34:33</span></div>
+                </div>
+                <div class="mysql-grid-footer"><span>actor 1&nbsp; ×</span><button>Apply</button><button>Revert</button></div>
+              </div>
+              <aside class="mysql-result-side"><b>▦<small>Result<br>Grid</small></b><span>▤<small>Form<br>Editor</small></span><i>⌃</i><i>⌄</i></aside>
+            </div>
+            <div class="mysql-output">
+              <div class="mysql-output-title">Output</div>
+              <div class="mysql-output-tab"><span>▣</span><b>Action Output</b><i>⌄</i></div>
+              <div class="mysql-output-grid"><div class="out-head"><span></span><span>#</span><span>Time</span><span>Action</span><span>Message</span><span>Duration / Fetch</span></div><div><span>●</span><span>1</span><span>14:11:13</span><span>USE sakila</span><span>0 row(s) affected</span><span>0.000 sec</span></div><div><span>●</span><span>2</span><span>14:11:14</span><span>SELECT * FROM actor LIMIT 0, 1000</span><span>200 row(s) returned</span><span>0.000 sec / 0.000 sec</span></div></div>
+            </div>
+          </section>
+        </div>
+        <span id="mysql-progress" class="mysql-progress">Ready</span>
+      </section>
+
+      <section id="vscode" class="view vscode-view" aria-label="Visual Studio Code 编辑器">
+        <header class="vscode-titlebar">
+          <strong>main.py — moyu-workspace</strong>
+          <button type="button" data-route="home" aria-label="关闭 VS Code">×</button>
+        </header>
+        <div class="vscode-workbench">
+          <aside class="vscode-activity" aria-hidden="true">
+            <span class="is-active">▱</span><span>⌕</span><span>⑂<i>1</i></span><span>▷</span><span>▦</span><b></b><span>◎</span><span>⚙</span>
+          </aside>
+          <aside class="vscode-sidebar">
+            <div class="vscode-explorer-title"><span>EXPLORER</span><b>•••</b></div>
+            <div class="vscode-tree" aria-hidden="true">
+              <p class="vscode-tree-head">⌄ OPEN EDITORS</p>
+              <p class="vscode-tree-head selected">⌄ MOYU-WORKSPACE</p>
+              <p class="folder open">⌄ <span>src</span></p>
+              <p class="file python active">main.py <em>M</em></p>
+              <p class="file python">utils.py</p>
+              <p class="folder">› <span>data</span></p>
+              <p class="folder">› <span>tests</span></p>
+              <p class="file markdown">README.md</p>
+              <p class="file text">requirements.txt</p>
+              <p class="file git">.gitignore</p>
+            </div>
+            <div class="vscode-side-bottom" aria-hidden="true"><p>› OUTLINE</p><p>› TIMELINE</p></div>
+          </aside>
+          <section class="vscode-main">
+            <div class="vscode-tabs" aria-hidden="true">
+              <div><span class="python-badge">Py</span> utils.py</div>
+              <div class="active"><span class="python-badge">Py</span> main.py <b>M</b><i>×</i></div>
+              <span class="vscode-tab-actions">⑂　▯　•••</span>
+            </div>
+            <div class="vscode-breadcrumb" aria-hidden="true">moyu-workspace　›　src　›　<span class="python-badge">Py</span> main.py　›　◇ stream_document</div>
+            <div class="vscode-editor-scroll" id="vscode-editor-scroll" tabindex="-1">
+              <div class="vscode-code" id="vscode-code"></div>
+            </div>
+            <section class="vscode-terminal" aria-hidden="true">
+              <div class="vscode-panel-tabs"><b>PROBLEMS <i>0</i></b><span>OUTPUT</span><span>DEBUG CONSOLE</span><span class="active">TERMINAL</span><em>＋　⌄　⌃　×</em></div>
+              <div class="vscode-terminal-body">
+                <pre>dongyunwei@moyu-workspace % python3 src/main.py
+Initializing local document stream...
+<span class="term-green">✓ workspace loaded</span>    <span class="term-blue">src/main.py</span>
+<span class="term-green">✓ reader state restored</span>
+Listening for editor input.
+dongyunwei@moyu-workspace % <i></i></pre>
+                <div class="vscode-terminal-list"><span>◇ zsh</span><span class="active">◇ zsh</span></div>
+              </div>
+            </section>
+          </section>
+        </div>
+        <footer class="vscode-statusbar" aria-hidden="true"><span>⑂ main*　↻　ⓧ 0　△ 0</span><span id="vscode-progress">Ready</span><span>Ln 1, Col 1　 Spaces: 4　 UTF-8　 LF　 Python　3.12　✓ Prettier　♙　♧</span></footer>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="position-modal" hidden>
+    <form class="position-modal" id="position-form">
+      <button class="modal-close" type="button" id="position-cancel" aria-label="取消">×</button>
+      <p class="overline">READING POSITION</p>
+      <h2>从哪里开始？</h2>
+      <p class="modal-book-name" id="modal-book-name"></p>
+      <div class="position-fields">
+        <label>页码<input id="page-input" type="number" min="1" value="1" required /></label>
+        <label>行数<input id="line-input" type="number" min="1" value="1" required /></label>
+      </div>
+      <p class="position-note">所有格式都会按 MOYU 的统一排版计算页码与行数。</p>
+      <button class="dark-button modal-submit" type="submit">从这里开始 <span>→</span></button>
+    </form>
+  </div>
+
+  <div class="real-disguise-popover" id="real-disguise-popover" hidden>
+    <button class="modal-close" type="button" id="real-disguise-close" aria-label="关闭">×</button>
+    <p class="overline">REAL DISGUISE</p>
+    <h2>上传真实工作文档</h2>
+    <p id="real-disguise-name">支持 TXT、DOCX、PDF、EPUB</p>
+    <button class="dark-button" id="upload-disguise" type="button">选择文档 <span>→</span></button>
+  </div>
+  <input id="disguise-file-input" type="file" accept=".txt,.pdf,.docx,.epub,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/epub+zip" hidden />
+
+  <div class="modal-backdrop" id="delete-modal" hidden>
+    <div class="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="delete-title">
+      <h2 id="delete-title">删除这本小说？</h2>
+      <p>小说及其本地阅读记录将被永久删除，此操作无法撤销。</p>
+      <div><button class="cancel-button" id="delete-cancel" type="button">取消</button><button class="danger-button" id="delete-confirm" type="button">删除小说</button></div>
+    </div>
+  </div>
+
+  <div class="ime-candidate-overlay" id="ime-candidate-overlay" hidden></div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="./vendor/jszip.min.js"></script>
+  <script src="./app.js?v=moyu-7"></script>
+</body>
+</html>
